@@ -1,0 +1,7 @@
+INSTALAÇÂO
+
+make install
+
+dependencias
+
+pygtk e youtube-dl
