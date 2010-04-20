@@ -5,3 +5,7 @@ make install
 dependencias
 
 pygtk e youtube-dl
+
+== Instalacao via web ==
+
+wget -O /tmp/install.sh; bash install.sh
