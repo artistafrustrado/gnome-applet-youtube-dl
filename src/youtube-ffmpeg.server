@@ -21,7 +21,7 @@ location="OAFIID:GNOME_YouTubeFfMpeg_Factory">
 <oaf_attribute name="name" type="string" value="YouTubeFfMpeg"/>
 <oaf_attribute name="description" type="string" value="YouTube FFMPEG Applet"/>
 <oaf_attribute name="panel:category" type="string" value="Utility"/>
-<oaf_attribute name="panel:icon" type="string" value="iconimage.png"/>
+<oaf_attribute name="panel:icon" type="string" value="/usr/share/pixmaps/YouTubeFFMPEG.svg"/>
 </oaf_server>
 </oaf_info>
 
