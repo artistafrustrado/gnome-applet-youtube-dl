@@ -18,7 +18,7 @@ class Sample_Applet(gnomeapplet.Applet):
     image_file = '/usr/share/pixmaps/YouTubeFFMPEG.svg'
     TARGET_TYPE_TEXT = 80
     toButton = [( "text/plain", 0, TARGET_TYPE_TEXT )]
-
+    _savePath = "~/Desktop"
 
     logging.basicConfig(level=logging.DEBUG)
 
@@ -57,7 +57,8 @@ class Sample_Applet(gnomeapplet.Applet):
       
       #commands.getoutput("cd ~/Desktop; /usr/bin/youtube-dl -b %s" % data.get_text())
       #commands.getoutput("cd ~/Desktop; /usr/bin/youtube-dl -b %s" % data.get_text())
-      os.system("cd ~/Desktop; /usr/bin/youtube-dl -b '%s' &" % data.get_text())
+      #os.system("cd %s; /usr/bin/youtube-dl -b '%s' &" % (self._savePath, data.get_text()))
+      os.spawnl(os.P_NOWAIT, "cd %s; /usr/bin/youtube-dl -b '%s' &" % (self._savePath, data.get_text()))
 
       icone = 'dialog-warning'
       title = "download"
