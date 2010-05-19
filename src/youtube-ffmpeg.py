@@ -18,7 +18,7 @@ class Sample_Applet(gnomeapplet.Applet):
     image_file = '/usr/share/pixmaps/YouTubeFFMPEG.svg'
     TARGET_TYPE_TEXT = 80
     toButton = [( "text/plain", 0, TARGET_TYPE_TEXT )]
-    _savePath = "~/Desktop"
+    _savePath = "~/VideosYouTube"
 
     logging.basicConfig(level=logging.DEBUG)
 
