@@ -59,10 +59,7 @@ class Sample_Applet(gnomeapplet.Applet):
 
       title = commands.getoutput("/usr/bin/youtube-dl -e '%s'" % data.get_text())
       
-      #commands.getoutput("cd ~/Desktop; /usr/bin/youtube-dl -b %s" % data.get_text())
-      #commands.getoutput("cd ~/Desktop; /usr/bin/youtube-dl -b %s" % data.get_text())
-      #os.system("cd %s; /usr/bin/youtube-dl -b '%s' &" % (self._savePath, data.get_text()))
-      os.spawnl(os.P_NOWAIT, "cd %s; /usr/bin/youtube-dl -b '%s' &" % (self._savePath, data.get_text()))
+      self._downloadFile(data.get_text())
 
       icone = 'dialog-warning'
       title = "download"
@@ -70,16 +67,18 @@ class Sample_Applet(gnomeapplet.Applet):
 
 
       n = pynotify.Notification(title, msg, icone)
-          #n.set_timeout(pynotify.EXPIRES_NEVER)
       n.show()
-       #       if not n.show():
-       #               print "Falha ao criar notificacao"
-
-
-#      commands.getoutput("cd ~/Desktop; ffmpeg -i %s -sameq -ab 56 -ar 22050 -b 500 %s" % (fileFlv, fileAvi))
-      
       
       context.finish(True, False, time)
+
+    def _downloadFile(self, url):
+      command = "cd %s/; /usr/bin/youtube-dl -b '%s' &" % (self._savePath, url)
+	#      print command
+#      try:
+#          pid = os.fork()
+#      except OSError, e:
+#          sys.exit(1)
+      os.system(command)
 
     def drop_cb(self, widget, context, selection, targetType, time):
       pass
