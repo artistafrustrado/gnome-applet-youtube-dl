@@ -11,6 +11,10 @@ import logging
 import commands
 import os
 import pynotify
+from threading import Thread
+
+# DOCS 
+# http://unpythonic.blogspot.com/2007/08/using-threads-in-pygtk.html
 
 class Sample_Applet(gnomeapplet.Applet):
     title = 'YouTube FFMPEG Applet'
@@ -24,6 +28,8 @@ class Sample_Applet(gnomeapplet.Applet):
 
     def __init__(self, applet, iid):
         logging.debug('__init__')
+
+        gtk.gdk.threads_init()	
 
         pynotify.init("YouTube")
         # save the applet object
@@ -56,28 +62,25 @@ class Sample_Applet(gnomeapplet.Applet):
     def got_data_cb(self, wid, context, x, y, data, info, time):
       # Got data.
       print data.get_text()
+      self._downloadFileThreaded(data.get_text())
+      context.finish(True, False, time)
 
-      title = commands.getoutput("/usr/bin/youtube-dl -e '%s'" % data.get_text())
-      
-      self._downloadFile(data.get_text())
+    def _downloadFileThreaded(self, url):
+      Thread(target=self._downloadFile, args=(url,)).start()
 
+
+    def _informDownload(self, url):
+      title = commands.getoutput("/usr/bin/youtube-dl -e '%s'" % url)
       icone = 'dialog-warning'
       title = "download"
-      msg = "download do video: <b>" + title + "</b> url::  " + data.get_text() + " - iniciado"
-
+      msg = "download do video: <b>" + title + "</b> url::  " + url + " - iniciado"
 
       n = pynotify.Notification(title, msg, icone)
       n.show()
-      
-      context.finish(True, False, time)
 
     def _downloadFile(self, url):
+      self._informDownload(url)
       command = "cd %s/; /usr/bin/youtube-dl -b '%s' &" % (self._savePath, url)
-	#      print command
-#      try:
-#          pid = os.fork()
-#      except OSError, e:
-#          sys.exit(1)
       os.system(command)
 
     def drop_cb(self, widget, context, selection, targetType, time):
