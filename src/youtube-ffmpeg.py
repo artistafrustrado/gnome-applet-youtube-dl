@@ -18,7 +18,7 @@ class Sample_Applet(gnomeapplet.Applet):
     image_file = '/usr/share/pixmaps/YouTubeFFMPEG.svg'
     TARGET_TYPE_TEXT = 80
     toButton = [( "text/plain", 0, TARGET_TYPE_TEXT )]
-    _savePath = "~/VideosYouTube"
+    _savePath = "%s/VideosYouTube" % os.getenv('HOME')
 
     logging.basicConfig(level=logging.DEBUG)
 
@@ -48,6 +48,10 @@ class Sample_Applet(gnomeapplet.Applet):
         self.applet.connect('drag_drop', self.drop_cb)
         self.applet.drag_dest_set(gtk.DEST_DEFAULT_MOTION | gtk.DEST_DEFAULT_HIGHLIGHT | gtk.DEST_DEFAULT_DROP, self.toButton, gtk.gdk.ACTION_COPY)
         self.applet.connect('drag_data_received', self.got_data_cb)
+
+        if not os.path.isdir(self._savePath):
+            os.makedirs(self._savePath)
+
 
     def got_data_cb(self, wid, context, x, y, data, info, time):
       # Got data.
