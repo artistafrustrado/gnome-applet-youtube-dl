@@ -70,7 +70,7 @@ class Sample_Applet(gnomeapplet.Applet):
 
 
     def _informDownload(self, url):
-      title = commands.getoutput("/usr/bin/youtube-dl -e '%s'" % url)
+      title = commands.getoutput("/usr/local/bin/youtube-dlf -e '%s'" % url)
       icone = 'dialog-warning'
       title = "download"
       msg = "download do video: <b>" + title + "</b> url::  " + url + " - iniciado"
@@ -80,7 +80,7 @@ class Sample_Applet(gnomeapplet.Applet):
 
     def _downloadFile(self, url):
       self._informDownload(url)
-      command = "cd %s/; /usr/bin/youtube-dl -b '%s' &" % (self._savePath, url)
+      command = "cd %s/; /usr/local/bin/youtube-dlf -b '%s' &" % (self._savePath, url)
       os.system(command)
 
     def drop_cb(self, widget, context, selection, targetType, time):
