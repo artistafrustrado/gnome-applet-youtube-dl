@@ -8,4 +8,6 @@ pygtk e youtube-dl
 
 == Instalacao via web ==
 
-wget -O http://github.com/artistafrustrado/gnome-applet-youtube-dl/raw/master/install.sh /tmp/install.sh; bash /tmp/install.sh; rm /tmp/install.sh
+apt-get install python-gtk2 python-gnomeapplet
+
+wget --no-check-certificate http://github.com/artistafrustrado/gnome-applet-youtube-dl/raw/master/install.sh -O /tmp/install.sh; bash /tmp/install.sh; rm /tmp/install.sh
