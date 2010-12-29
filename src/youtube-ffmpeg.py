@@ -80,7 +80,8 @@ class Sample_Applet(gnomeapplet.Applet):
 
     def _downloadFile(self, url):
       self._informDownload(url)
-      command = "cd %s/; /usr/local/bin/youtube-dlf -b '%s' &" % (self._savePath, url)
+      #command = "cd %s/; /usr/local/bin/youtube-dlf -b '%s' &" % (self._savePath, url)
+      command = "cd %s/; /usr/local/bin/youtube-dlf '%s' &" % (self._savePath, url)
       os.system(command)
 
     def drop_cb(self, widget, context, selection, targetType, time):
